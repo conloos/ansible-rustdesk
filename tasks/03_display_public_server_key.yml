@@ -1,0 +1,18 @@
+---
+# wait for key
+- name: wait for public key creation
+  ansible.builtin.wait_for:
+    path: '{{ rustdesk.hbbs_data_dir }}/id_ed25519.pub'
+    state: present
+
+# read public key
+- name: read public key
+  ansible.builtin.slurp:
+    src: '{{ rustdesk.hbbs_data_dir }}/id_ed25519.pub'
+  register: rustdesk_key
+
+# display public key
+- name: display public key
+  ansible.builtin.debug:
+    msg: "The Rustdesk server public key is: {{ rustdesk_key['content'] | b64decode }}"
+...

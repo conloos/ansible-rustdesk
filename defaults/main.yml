@@ -1,0 +1,4 @@
+---
+rustdesk:
+  hbbs_data_dir: '/srv/data/hbbs'
+  server_version_tag: 'latest'
