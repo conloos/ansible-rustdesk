@@ -1,10 +1,14 @@
-# Ansible role for building and running awx.
-============================================
+# Ansible role for building and running rustdesk.
+=================================================
 
 **summary**
 This role is for building and running rustdesk. 
 Look in the tasks directory for each configuration.
 All configurations are held atomically via their own files.
+
+## Necessary preparations
+A docker runtime environment must exist on the system.
+Or use: https://github.com/conloos/ansible-docker
 
 ## Variables that have to be defined
 
