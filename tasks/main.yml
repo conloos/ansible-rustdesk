@@ -8,5 +8,4 @@
     with_items: "{{ lookup( 'fileglob', '*.yml' ).split(',') | reject('search', 'main.yml') | sort }}"
     loop_control:
       loop_var: element
-
-
+...
