@@ -5,7 +5,7 @@
       containers: yes
     register: docker_info
 
-  - name: Stop running containers
+  - name: Stop running containers and delete them
     community.docker.docker_container:
       name: "{{ item }}"
       state: absent
