@@ -19,9 +19,9 @@
     # env:
     # links:
     network_mode: host
-    tty: true
-    interactive: true
-    cleanup: true
+    tty: True
+    interactive: True
+    cleanup: True
     # ports:
     #   # tcp - NAT type test
     #   - "21115:21115"
@@ -42,9 +42,9 @@
     state: started
     restart_policy: always
     network_mode: host
-    tty: true
-    interactive: true
-    cleanup: true
+    tty: True
+    interactive: True
+    cleanup: True
     # env:
     # links:
     # ports:

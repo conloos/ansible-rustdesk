@@ -17,8 +17,8 @@ argument_specs:
         description: public address (IP/DNS) of the server
       rustdesk_recreate_container_and_keys:
         type: bool
-        required: false
-        default: false
+        required: False
+        default: False
         description: recreate the container and keys
 
 

@@ -14,17 +14,17 @@ Or use: https://github.com/conloos/ansible-docker
 
 | variable | description | mandantory |
 | -------- | ----------- | ---------- |
-| rustdesk.hbbs_data_dir | Path to store persistent hbbs data | false |
-| rustdesk.server_version_tag | docker Version Tag | false |
-| rustdesk_public_address | docker Version Tag | true |
-| rustdesk_recreate_container_and_keys | recreate the container and keys | false |
+| rustdesk.hbbs_data_dir | Path to store persistent hbbs data | False |
+| rustdesk.server_version_tag | docker Version Tag | False |
+| rustdesk_public_address | docker Version Tag | True |
+| rustdesk_recreate_container_and_keys | recreate the container and keys | False |
 
 # example playbook
 ```
 ---
 - hosts: 
     - example.com
-  become: true
+  become: True
   vars:
     rustdesk_public_address: example.com
   vars_files:

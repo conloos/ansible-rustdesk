@@ -10,5 +10,5 @@
       name: "{{ item }}"
       state: absent
     loop: "{{ docker_info.containers | map(attribute='Id') | list }}"
-  when: hostvars['localhost']['rustdesk_recreate_container_and_keys'] is defined and hostvars['localhost']['rustdesk_recreate_container_and_keys'] == true
+  when: hostvars['localhost']['rustdesk_recreate_container_and_keys'] is defined and hostvars['localhost']['rustdesk_recreate_container_and_keys'] == True
 ...
