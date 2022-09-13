@@ -1,14 +1,15 @@
 ---
-- block:
-  - name: Get running containers
-    community.docker.docker_host_info:
-      containers: yes
-    register: docker_info
+- name: Stop running containers
+  block:
+    - name: Get running containers
+      community.docker.docker_host_info:
+        containers: true
+      register: docker_info
 
-  - name: Stop running containers and delete them
-    community.docker.docker_container:
-      name: "{{ item }}"
-      state: absent
-    loop: "{{ docker_info.containers | map(attribute='Id') | list }}"
-  when: hostvars['localhost']['rustdesk_recreate_container_and_keys'] is defined and hostvars['localhost']['rustdesk_recreate_container_and_keys'] == True
+    - name: Stop running containers and delete them
+      community.docker.docker_container:
+        name: "{{ item }}"
+        state: absent
+      loop: "{{ docker_info.containers | map(attribute='Id') | list }}"
+  when: rustdesk_recreate_container_and_keys is defined and rustdesk_recreate_container_and_keys
 ...

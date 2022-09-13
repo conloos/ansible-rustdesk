@@ -1,57 +1,59 @@
 ---
 # Create Rustdesk Server
-- name: pull rustdesk server
+- name: Pull rustdesk server
   community.docker.docker_image:
     name: rustdesk/rustdesk-server
     source: pull
-    tag: '{{ rustdesk.server_version_tag }}'
+    tag: "{{ rustdesk.server_version_tag }}"
     pull:
       platform: amd64
 
 # start hbbs - RustDesk ID/Rendezvous server
-- name: create container hbbs
+- name: Create container hbbs
   community.docker.docker_container:
     name: hbbs
-    image: 'rustdesk/rustdesk-server:{{ rustdesk.server_version_tag }}'
+    image: "rustdesk/rustdesk-server:{{ rustdesk.server_version_tag }}"
     state: started
-    restart_policy: always
-    command: 'hbbs -r {{ rustdesk_public_address }}'
+    restart_policy: unless-stopped
+    command: "hbbs -r {{ rustdesk_public_address }}"
+    env:
+      RELAY: "{{ rustdesk_public_address }}:21117"
+      ENCRYPTED_ONLY: "1"
     # env:
     # links:
-    network_mode: host
-    tty: True
-    interactive: True
-    cleanup: True
-    # ports:
-    #   # tcp - NAT type test
-    #   - "21115:21115"
-    #   # tcp -  TCP hole punching and connection service
-    #   - "21116:21116"
-    #   # udp - ID registration and heardbeat
-    #   - "21116:21116/udp"
-    #   # tcp - support web clients
-    #   - "21118:21118"
+    # network_mode: host
+    # tty: True
+    # interactive: True
+    # cleanup: True
+    ports:
+      # tcp - NAT type test
+      - "21115:21115"
+      # tcp -  TCP hole punching and connection service
+      - "21116:21116"
+      # udp - ID registration and heardbeat
+      - "21116:21116/udp"
+      # tcp - support web clients
+      - "21118:21118"
     volumes:
       - '{{ rustdesk.hbbs_data_dir }}:/root'
 
 # start hbbr - RustDesk relay server
-- name: create container hbbr
+- name: Create container hbbr
   community.docker.docker_container:
     name: hbbr
-    image: 'rustdesk/rustdesk-server:{{ rustdesk.server_version_tag }}'
+    command: "hbbr"
+    image: "rustdesk/rustdesk-server:{{ rustdesk.server_version_tag }}"
     state: started
-    restart_policy: always
-    network_mode: host
-    tty: True
-    interactive: True
-    cleanup: True
+    restart_policy: unless-stopped
+    # network_mode: host
+    # tty: True
+    # interactive: True
+    # cleanup: True
     # env:
     # links:
-    # ports:
-    #   # tcp - Relay services
-    #   - "21117:21117"
-    #   # tcp - support web clients
-    #   - "21119:21119"
-    volumes:
-      - '{{ rustdesk.hbbs_data_dir }}:/root'
+    ports:
+      # tcp - Relay services
+      - "21117:21117"
+      # tcp - support web clients
+      - "21119:21119"
 ...

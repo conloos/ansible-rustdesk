@@ -1,6 +1,12 @@
+---
 argument_specs:
   main:
-    short_description: Main entrypoint
+    # https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html#role-argument-validation
+    # https://docs.ansible.com/ansible/latest/dev_guide/developing_program_flow_modules.html#argument-spec
+    short_description: Role for install rustdesk by docker.
+    description: Role for install rustdesk by docker.
+    author:
+      - Frank Dornheim
     options:
       rustdesk.hbbs_data_dir:
         type: path
@@ -13,12 +19,11 @@ argument_specs:
         description: docker Version Tag
       rustdesk_public_address:
         type: str
-        required: yes
+        required: true
         description: public address (IP/DNS) of the server
       rustdesk_recreate_container_and_keys:
         type: bool
-        required: False
-        default: False
+        required: false
+        default: false
         description: recreate the container and keys
-
-
+...
